@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+def ver= rootProject.ext;
+
+configurations {
+    provided
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.google.dagger:dagger:${ver.daggerVersion}"
+    provided "com.google.dagger:dagger-compiler:${ver.daggerVersion}"
+    compile "io.reactivex:rxjava:$ver.rxjavaVersion"
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
