@@ -42,12 +42,14 @@ ext {
     runnerVersion = '0.4.1'
     rulesVersion = '0.4.1'
     espressoVersion = '2.2.1'
-    rxjavaVersion = '1.1.8'
-    rxandroidVersion = '1.2.1'
-    daggerVersion='2.4'
+    rxjavaVersion = '2.0.6'
+    rxandroidVersion = '2.0.1'
+    loggingVersion='3.3.1'
+    daggerVersion='2.7'
     icepickVersion='3.2.0'
     butterknifeVersion='8.4.0'
     junitVersion='4.12'
     retrofitVersion='2.2.0'
+    javaxAnnotationVersion='10.0-b28'
 }
 

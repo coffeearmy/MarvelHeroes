@@ -15,6 +15,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug{
+            resValue "string", "public_key", "6a7ed890b4b941a925202a5630d5b162"
+            resValue "string", "private_key", "0f1d0fdf46a0bf32f962b0b9997233c0395cdf8e"
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -28,10 +33,15 @@ dependencies {
     compile "com.android.support:appcompat-v7:${ver.supportLibraryVersion}"
     testCompile "junit:junit:${ver.junitVersion}"
     compile "com.google.dagger:dagger:${ver.daggerVersion}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${ver.daggerVersion}"
+    apt "com.google.dagger:dagger-compiler:${ver.daggerVersion}"
+    provided "org.glassfish:javax.annotation:${ver.javaxAnnotationVersion}"
     compile "com.android.support:recyclerview-v7:$ver.supportLibraryVersion"
     compile "com.android.support:support-v4:$ver.supportLibraryVersion"
-    compile "io.reactivex:rxjava:$ver.rxjavaVersion"
+    compile "io.reactivex.rxjava2:rxjava:$ver.rxjavaVersion"
+    compile "io.reactivex.rxjava2:rxandroid:$ver.rxandroidVersion"
     compile "com.jakewharton:butterknife:$ver.butterknifeVersion"
     apt "com.jakewharton:butterknife-compiler:$ver.butterknifeVersion"
+
+    compile project(':domain')
+    compile project(':data')
 }
