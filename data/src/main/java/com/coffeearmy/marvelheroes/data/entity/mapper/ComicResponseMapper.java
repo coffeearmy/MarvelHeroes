@@ -32,7 +32,7 @@ public class ComicResponseMapper {
     private List<String> responseImageToModel(List<ComicResponse.ComicImage> comicImageList) {
         List<String> urlList= new ArrayList<>();
         for (ComicResponse.ComicImage comicImage : comicImageList) {
-            urlList.add(comicImage.getPath());
+            urlList.add(comicImage.getPath()+"."+comicImage.getExtension());
         }
         return urlList;
     }
