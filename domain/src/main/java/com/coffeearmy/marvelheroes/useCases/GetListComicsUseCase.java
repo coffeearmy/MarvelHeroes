@@ -11,5 +11,5 @@ import io.reactivex.Observable;
  */
 public interface GetListComicsUseCase<T> {
 
-    Observable<List<Comic>> execute(String idCharacter);
+    Observable<List<Comic>> execute(String idCharacter, int offset);
 }

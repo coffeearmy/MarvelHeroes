@@ -1,4 +1,4 @@
-package com.coffeearmy.marvelheroes.model;
+package com.coffeearmy.marvelheroes.base;
 
 /**
  * :3

@@ -32,8 +32,8 @@ public class ComicsRepositoryImpl implements ComicsRepository {
 
 
     @Override
-    public Observable<List<Comic>> getListComics(String characterId) {
-        return comicsGateway.getComicsByCharacterId(characterId)
+    public Observable<List<Comic>> getListComics(String characterId, int offset) {
+        return comicsGateway.getComicsByCharacterId(characterId,offset)
                .flatMap(new Function<BaseResponse, Observable<List<Comic>>>() {
                    @Override
                    public Observable<List<Comic>> apply(@NonNull BaseResponse baseResponse) throws Exception {

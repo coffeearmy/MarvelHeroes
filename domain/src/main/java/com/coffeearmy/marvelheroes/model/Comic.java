@@ -6,7 +6,7 @@ import java.util.List;
  * :3
  */
 
-public class Comic implements BaseEntity{
+public class Comic {
     private int id;
     private String title;
     private String description;

@@ -5,6 +5,7 @@ import android.app.Application;
 import com.coffeearmy.marvelheroes.R;
 import com.coffeearmy.marvelheroes.data.net.ComicInterceptor;
 import com.coffeearmy.marvelheroes.data.net.ComicsGateway;
+import com.coffeearmy.marvelheroes.navigation.Navigator;
 import com.google.gson.GsonBuilder;
 
 import javax.inject.Named;
@@ -87,6 +88,12 @@ public class ApplicationModule {
                 .client(httpClient)
                 .build();
         return retrofit.create(ComicsGateway.class);
+    }
+
+    @Provides
+    @Singleton
+    Navigator provideNavigator(){
+        return new Navigator();
     }
 
 }

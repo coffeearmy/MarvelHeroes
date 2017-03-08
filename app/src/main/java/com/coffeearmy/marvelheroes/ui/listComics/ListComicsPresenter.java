@@ -1,11 +1,12 @@
-package com.coffeearmy.marvelheroes.listComics;
+package com.coffeearmy.marvelheroes.ui.listComics;
 
 import android.util.Log;
 
 import com.coffeearmy.marvelheroes.base.BasePresenter;
 import com.coffeearmy.marvelheroes.model.Comic;
+import com.coffeearmy.marvelheroes.model.ComicView;
+import com.coffeearmy.marvelheroes.model.mapper.ComicDomainMapper;
 import com.coffeearmy.marvelheroes.useCases.GetListComicsUseCase;
-import com.coffeearmy.marvelheroes.useCases.GetListComicsUseCaseImpl;
 
 import java.util.List;
 
@@ -27,25 +28,56 @@ public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {
 
     GetListComicsUseCase getListComicsUseCase;
 
+    private ComicDomainMapper comicDomainMapper;
+
     private ListComicsViewModel listComicsView;
+    private int offset=0;
 
     @Inject
-    public ListComicsPresenter(GetListComicsUseCase getListComicsUseCase) {
+    public ListComicsPresenter(GetListComicsUseCase getListComicsUseCase, ComicDomainMapper comicDomainMapper) {
         this.getListComicsUseCase = getListComicsUseCase;
+        this.comicDomainMapper = comicDomainMapper;
+    }
+
+
+    @Override
+    public void attachView(ListComicsViewModel view) {
+        listComicsView = view;
     }
 
     @Override
-    public void initialize(ListComicsViewModel view) {
+    public void onPause() {
 
-        listComicsView = view;
-        getListComicsUseCase.execute("1009415")
+    }
+
+    @Override
+    public void onViewReady() {
+        getComics();
+    }
+
+    @Override
+    public void detachView() {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+
+    private void getComics() {
+        listComicsView.showLoading();
+        getListComicsUseCase.execute("1009415", offset)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<List<Comic>>() {
                     @Override
                     public void onNext(List<Comic> comics) {
                         Log.i(TAG, "onNext: "+comics.size());
-                        showComic(comics);
+
+                        offset=offset+comics.size();
+                        showComic(comicDomainMapper.domainToView(comics));
                     }
 
                     @Override
@@ -56,18 +88,21 @@ public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "Complete");
+                        listComicsView.hideLoading();
                     }
                 });
     }
 
-    private void showComic(List<Comic> comics) {
+    private void showComic(List<ComicView> comics) {
         listComicsView.showComics(comics);
     }
 
-    @Override
-    public void onPause() {
 
+    void loadMoreItems() {
+         getComics();
     }
 
-
+    boolean needsMoreItems(int firstVisibleItemPosition, int visibleItems, int totalItems) {
+        return !(firstVisibleItemPosition+visibleItems<totalItems);
+    }
 }

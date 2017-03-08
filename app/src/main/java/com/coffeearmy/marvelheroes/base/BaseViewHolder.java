@@ -4,8 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 
-import com.coffeearmy.marvelheroes.model.BaseEntity;
-
 import butterknife.ButterKnife;
 
 /**
@@ -20,6 +18,5 @@ public abstract class BaseViewHolder<T extends BaseEntity> extends RecyclerView.
 
     public abstract void bind(T model);
 
-    public abstract View getHandlerView();
 }
 

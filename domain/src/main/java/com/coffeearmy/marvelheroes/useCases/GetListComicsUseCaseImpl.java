@@ -23,7 +23,7 @@ public class GetListComicsUseCaseImpl implements GetListComicsUseCase<Observable
     }
 
     @Override
-    public Observable<List<Comic>> execute(String idCharacter) {
-        return  comicsRepository.getListComics(idCharacter);
+    public Observable<List<Comic>> execute(String idCharacter, int offset) {
+        return  comicsRepository.getListComics(idCharacter,offset);
     }
 }

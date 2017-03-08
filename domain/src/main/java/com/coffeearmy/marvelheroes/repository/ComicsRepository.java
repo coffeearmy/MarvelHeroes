@@ -13,6 +13,6 @@ import io.reactivex.Observable;
 
 public interface ComicsRepository {
 
-    Observable<List<Comic>> getListComics(String characterId);
+    Observable<List<Comic>> getListComics(String characterId, int offset);
 
 }

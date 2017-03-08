@@ -6,7 +6,9 @@ import com.coffeearmy.marvelheroes.data.entity.mapper.ComicResponseMapper;
 import com.coffeearmy.marvelheroes.data.net.ComicsGateway;
 import com.coffeearmy.marvelheroes.data.repository.ComicsRepositoryImpl;
 import com.coffeearmy.marvelheroes.injector.ActivityScope;
-import com.coffeearmy.marvelheroes.listComics.ListComicsPresenter;
+import com.coffeearmy.marvelheroes.model.mapper.ComicDomainMapper;
+import com.coffeearmy.marvelheroes.ui.comicDetail.ComicDetailPresenter;
+import com.coffeearmy.marvelheroes.ui.listComics.ListComicsPresenter;
 import com.coffeearmy.marvelheroes.repository.ComicsRepository;
 import com.coffeearmy.marvelheroes.useCases.GetListComicsUseCase;
 import com.coffeearmy.marvelheroes.useCases.GetListComicsUseCaseImpl;
@@ -44,8 +46,14 @@ public class ActivityModule {
 
     @Provides
     @ActivityScope
-    ListComicsPresenter provideListComicsPresenter(GetListComicsUseCase getListComicsUseCase){
-        return  new ListComicsPresenter(getListComicsUseCase);
+    ListComicsPresenter provideListComicsPresenter(GetListComicsUseCase getListComicsUseCase, ComicDomainMapper comicDomainMapper){
+        return  new ListComicsPresenter(getListComicsUseCase,comicDomainMapper);
+    }
+
+    @Provides
+    @ActivityScope
+    ComicDetailPresenter provideComicDetailPresenter(){
+        return  new ComicDetailPresenter();
     }
 
     @Provides
@@ -58,5 +66,11 @@ public class ActivityModule {
     @ActivityScope
     ComicsRepository provideComicRepository(ComicsGateway comicsGateway, ComicResponseMapper comicResponseMapper){
         return new ComicsRepositoryImpl(comicsGateway,comicResponseMapper);
+    }
+
+    @Provides
+    @ActivityScope
+    ComicDomainMapper provideComicDomainMapper(){
+        return new ComicDomainMapper();
     }
 }

@@ -8,9 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.coffeearmy.marvelheroes.ComicApplication;
+import com.coffeearmy.marvelheroes.R;
 import com.coffeearmy.marvelheroes.injector.component.ApplicationComponent;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
  * :3
@@ -19,7 +25,11 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment implements BaseViewModel{
 
 
-    private BasePresenter presenter;
+    @Nullable
+    @BindView(R.id.loading)
+    View loadingView;
+
+    protected BasePresenter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,15 +53,41 @@ public abstract class BaseFragment extends Fragment implements BaseViewModel{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeButterKnife(view);
-        presenter=initializePresenter();
-        presenter.initialize(this);
+        presenter= (BasePresenter)initializePresenter();
+        presenter.attachView(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.onViewReady();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        presenter.onPause();
+        presenter.pause();
     }
+
+    @Override
+    public void showLoading() {
+        if(loadingView!=null)
+        loadingView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideLoading() {
+        if(loadingView!=null)
+        loadingView.setVisibility(View.GONE);
+    }
+
 
     private void initializeButterKnife(View view) {
         ButterKnife.bind(this,view);

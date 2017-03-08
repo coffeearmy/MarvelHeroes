@@ -1,4 +1,4 @@
-package com.coffeearmy.marvelheroes.listComics;
+package com.coffeearmy.marvelheroes.ui.listComics;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,10 +9,13 @@ import android.view.View;
 import com.coffeearmy.marvelheroes.R;
 import com.coffeearmy.marvelheroes.base.BaseFragment;
 import com.coffeearmy.marvelheroes.base.BasePresenter;
-import com.coffeearmy.marvelheroes.model.Comic;
 import com.coffeearmy.marvelheroes.injector.component.ApplicationComponent;
 import com.coffeearmy.marvelheroes.injector.component.DaggerActivityComponent;
 import com.coffeearmy.marvelheroes.injector.module.ActivityModule;
+import com.coffeearmy.marvelheroes.model.ComicView;
+import com.coffeearmy.marvelheroes.navigation.Navigator;
+import com.coffeearmy.marvelheroes.ui.comicDetail.ComicDetailActivity;
+import com.coffeearmy.marvelheroes.ui.listComics.list.ComicsRecyclerAdapter;
 
 import java.util.List;
 
@@ -24,17 +27,20 @@ import butterknife.BindView;
  * :3
  */
 
-public class ListComicsFragment extends BaseFragment implements ListComicsViewModel {
+public class ListComicsFragment extends BaseFragment implements ListComicsViewModel,
+        ComicsRecyclerAdapter.OnClickItemListener{
 
     private static int layout= R.layout.list_comics_fragment;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-
     @Inject
     ListComicsPresenter listComicsPresenter;
+    @Inject
+    Navigator navigator;
 
     private ComicsRecyclerAdapter comicsRecyclerAdapter;
+    private boolean loading;
 
     @Override
     protected void inject(ApplicationComponent applicationComponent) {
@@ -63,18 +69,26 @@ public class ListComicsFragment extends BaseFragment implements ListComicsViewMo
 
 
     private void initializeList() {
-        comicsRecyclerAdapter = new ComicsRecyclerAdapter();
+        comicsRecyclerAdapter = new ComicsRecyclerAdapter(this);
         recyclerView.setAdapter(comicsRecyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-    @Override
-    public void showLoading() {
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
 
-    }
+        recyclerView.setHasFixedSize(true);
 
-    @Override
-    public void hideLoading() {
-
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy>0 && !loading) {
+                    int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+                    int visibleItems = recyclerView.getChildCount();
+                    int totalItems = comicsRecyclerAdapter.getItemCount();
+                    if (listComicsPresenter.needsMoreItems(firstVisibleItemPosition, visibleItems, totalItems))
+                        listComicsPresenter.loadMoreItems();
+                }
+            }
+        });
     }
 
     @Override
@@ -83,7 +97,12 @@ public class ListComicsFragment extends BaseFragment implements ListComicsViewMo
     }
 
     @Override
-    public void showComics(List<Comic> comics) {
+    public void showComics(List<ComicView> comics) {
         comicsRecyclerAdapter.addAll(comics);
+    }
+
+    @Override
+    public void onClickItem(ComicView comic) {
+        navigator.goToDetail(getActivity(),comic);
     }
 }

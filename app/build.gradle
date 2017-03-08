@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
-def ver= rootProject.ext;
+def ver = rootProject.ext;
 
 android {
     compileSdkVersion ver.compileSdkVersion
@@ -15,7 +15,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug{
+        debug {
             resValue "string", "public_key", "6a7ed890b4b941a925202a5630d5b162"
             resValue "string", "private_key", "0f1d0fdf46a0bf32f962b0b9997233c0395cdf8e"
         }
@@ -37,12 +37,14 @@ dependencies {
     provided "org.glassfish:javax.annotation:${ver.javaxAnnotationVersion}"
     compile "com.android.support:recyclerview-v7:$ver.supportLibraryVersion"
     compile "com.android.support:support-v4:$ver.supportLibraryVersion"
+    compile "com.android.support:design:$ver.supportLibraryVersion"
     compile "io.reactivex.rxjava2:rxjava:$ver.rxjavaVersion"
     compile "io.reactivex.rxjava2:rxandroid:$ver.rxandroidVersion"
     compile "com.jakewharton:butterknife:$ver.butterknifeVersion"
     apt "com.jakewharton:butterknife-compiler:$ver.butterknifeVersion"
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-v4:19.1.0'
+    compile "com.android.support:cardview-v7:${ver.supportLibraryVersion}"
     compile project(':domain')
     compile project(':data')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:24.2.1'
 }

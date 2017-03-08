@@ -1,4 +1,4 @@
-package com.coffeearmy.marvelheroes.listComics;
+package com.coffeearmy.marvelheroes.ui.listComics;
 
 
 import android.support.annotation.NonNull;
@@ -13,6 +13,16 @@ public class ListComicsActivity extends BaseActivity {
     private static final String TAG = ListComicsActivity.class.getSimpleName();
     private final int layoutID= R.layout.activity_main;
 
+
+    @Override
+    protected String getToolbarTitle() {
+        return getString(R.string.app_name);
+    }
+
+    @Override
+    protected boolean isHomeButtonNeeded() {
+        return false;
+    }
 
     @Override
     protected int getLayout() {
