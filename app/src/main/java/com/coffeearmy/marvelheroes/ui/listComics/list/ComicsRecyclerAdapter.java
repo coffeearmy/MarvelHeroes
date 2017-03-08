@@ -19,6 +19,10 @@ public class ComicsRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> 
 
     OnClickItemListener onClickItemListener;
 
+    public ComicsRecyclerAdapter(OnClickItemListener onClickItemListener) {
+        this.onClickItemListener = onClickItemListener;
+    }
+
     public interface OnClickItemListener{
        void onClickItem(ComicView comic);
     }

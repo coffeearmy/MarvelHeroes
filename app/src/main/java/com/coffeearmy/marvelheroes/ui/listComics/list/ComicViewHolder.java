@@ -24,7 +24,7 @@ public class ComicViewHolder extends BaseViewHolder {
     @BindView(R.id.cover_comic)
     ImageView coverComic;
 
-    OnClickCallback listener;
+    private OnClickCallback listener;
 
     public  interface  OnClickCallback{
         void getComicClicked(ComicView comic);
@@ -33,6 +33,7 @@ public class ComicViewHolder extends BaseViewHolder {
     public ComicViewHolder(View comicView, ComicsRecyclerAdapter comicsRecyclerAdapter) {
         super(comicView);
         this.comicView = comicView;
+        this.listener=comicsRecyclerAdapter;
     }
 
     @Override
@@ -42,7 +43,7 @@ public class ComicViewHolder extends BaseViewHolder {
         if(!comic.getComicImageList().isEmpty())
         Glide.with(comicView.getContext()).load(comic.getComicImageList().get(0)).into(coverComic);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
+        comicView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 listener.getComicClicked(comic);
             }
