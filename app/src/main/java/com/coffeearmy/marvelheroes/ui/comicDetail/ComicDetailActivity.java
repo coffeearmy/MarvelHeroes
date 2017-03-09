@@ -37,7 +37,7 @@ public class ComicDetailActivity extends BaseActivity{
 
     @Override
     protected String getToolbarTitle() {
-        return ""; //No needed for detai
+        return getString(R.string.app_name);
     }
 
     @Override

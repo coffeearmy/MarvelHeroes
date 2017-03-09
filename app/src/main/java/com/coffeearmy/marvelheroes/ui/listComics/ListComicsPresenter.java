@@ -13,6 +13,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -32,11 +34,13 @@ public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {
 
     private ListComicsViewModel listComicsView;
     private int offset=0;
+    private String  idCharacter;
 
     @Inject
-    public ListComicsPresenter(GetListComicsUseCase getListComicsUseCase, ComicDomainMapper comicDomainMapper) {
+    public ListComicsPresenter(GetListComicsUseCase getListComicsUseCase, ComicDomainMapper comicDomainMapper, String idCharacter) {
         this.getListComicsUseCase = getListComicsUseCase;
         this.comicDomainMapper = comicDomainMapper;
+        this.idCharacter = idCharacter;
     }
 
 
@@ -68,27 +72,25 @@ public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {
 
     private void getComics() {
         listComicsView.showLoading();
-        getListComicsUseCase.execute("1009415", offset)
+
+        getListComicsUseCase.execute(idCharacter, offset)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<List<Comic>>() {
+                .subscribe(new Consumer<List<Comic>>() {
                     @Override
-                    public void onNext(List<Comic> comics) {
-                        Log.i(TAG, "onNext: "+comics.size());
-
-                        offset=offset+comics.size();
+                    public void accept(@NonNull List<Comic> comics) throws Exception {
+                        Log.d(TAG, "accept: "+comics.size());
+                        offset = offset + comics.size();
                         showComic(comicDomainMapper.domainToView(comics));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i(TAG, "onError: OHNO"+ Log.getStackTraceString(e));
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.i(TAG, "Complete");
                         listComicsView.hideLoading();
+                    }
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        ///TODO Handle error properly
+                        Log.i(TAG, "onError: OH NO"+ Log.getStackTraceString(throwable));
+                        listComicsView.showError();
                     }
                 });
     }
@@ -96,7 +98,6 @@ public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {
     private void showComic(List<ComicView> comics) {
         listComicsView.showComics(comics);
     }
-
 
     void loadMoreItems() {
          getComics();

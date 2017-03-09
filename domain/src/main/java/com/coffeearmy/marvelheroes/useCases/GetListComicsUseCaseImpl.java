@@ -7,13 +7,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
  * :3
  */
 
-public class GetListComicsUseCaseImpl implements GetListComicsUseCase<Observable<List<Comic>>> {
+public class GetListComicsUseCaseImpl implements GetListComicsUseCase {
 
     private ComicsRepository comicsRepository;
 
@@ -23,7 +24,7 @@ public class GetListComicsUseCaseImpl implements GetListComicsUseCase<Observable
     }
 
     @Override
-    public Observable<List<Comic>> execute(String idCharacter, int offset) {
+    public Flowable<List<Comic>> execute(String idCharacter, int offset) {
         return  comicsRepository.getListComics(idCharacter,offset);
     }
 }

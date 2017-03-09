@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.coffeearmy.marvelheroes.ComicApplication;
 import com.coffeearmy.marvelheroes.R;
@@ -22,7 +23,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
  * :3
  */
 
-public abstract class BaseFragment extends Fragment implements BaseViewModel{
+public abstract class BaseFragment extends Fragment implements BaseViewModel {
 
 
     @Nullable
@@ -46,14 +47,14 @@ public abstract class BaseFragment extends Fragment implements BaseViewModel{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(getLayout(),container,false);
+        return inflater.inflate(getLayout(), container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeButterKnife(view);
-        presenter= (BasePresenter)initializePresenter();
+        presenter = initializePresenter();
         presenter.attachView(this);
     }
 
@@ -77,20 +78,26 @@ public abstract class BaseFragment extends Fragment implements BaseViewModel{
 
     @Override
     public void showLoading() {
-        if(loadingView!=null)
-        loadingView.setVisibility(View.VISIBLE);
+        if (loadingView != null)
+            loadingView.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideLoading() {
-        if(loadingView!=null)
-        loadingView.setVisibility(View.GONE);
+        if (loadingView != null)
+            loadingView.setVisibility(View.GONE);
     }
 
+    @Override
+    public void showError() {
+        //A better way to do it is showing a dialog, or a text explaining what happend
+        hideLoading();
+        Toast.makeText(getContext(), getString(R.string.default_error), Toast.LENGTH_LONG).show();
+    }
 
     private void initializeButterKnife(View view) {
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
     }
 
     public abstract int getLayout();

@@ -13,6 +13,8 @@ public class BaseResponse {
 
     private String copyright;
 
+    private String message;
+
     private String attributionText;
 
     private String attributionHTML;
@@ -59,6 +61,13 @@ public class BaseResponse {
 
     public void setAttributionHTML(String attributionHTML) {
         this.attributionHTML = attributionHTML;
+    }
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getEtag() {

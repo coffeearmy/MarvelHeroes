@@ -7,6 +7,7 @@ import com.coffeearmy.marvelheroes.model.Comic;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 
@@ -16,7 +17,7 @@ import io.reactivex.Observable;
 
 public class ComicResponseMapper {
 
-    public Observable<List<Comic>> responseToModel(ComicsResponse data) {
+    public Flowable<List<Comic>> responseToModel(ComicsResponse data) {
         List<Comic> comicList = new ArrayList<>();
         for (ComicResponse comicResponse : data.getComicResponseList()) {
             Comic comic = new Comic();
@@ -26,7 +27,7 @@ public class ComicResponseMapper {
             comic.setComicImageList(responseImageToModel(comicResponse.getComicImageList()));
             comicList.add(comic);
         }
-        return Observable.just(comicList);
+        return Flowable.just(comicList);
     }
 
     private List<String> responseImageToModel(List<ComicResponse.ComicImage> comicImageList) {

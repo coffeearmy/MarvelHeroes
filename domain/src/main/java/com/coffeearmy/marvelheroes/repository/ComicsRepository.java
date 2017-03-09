@@ -4,6 +4,7 @@ import com.coffeearmy.marvelheroes.model.Comic;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 
@@ -13,6 +14,6 @@ import io.reactivex.Observable;
 
 public interface ComicsRepository {
 
-    Observable<List<Comic>> getListComics(String characterId, int offset);
+    Flowable<List<Comic>> getListComics(String characterId, int offset);
 
 }

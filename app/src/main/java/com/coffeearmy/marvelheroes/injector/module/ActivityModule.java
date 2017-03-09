@@ -13,6 +13,9 @@ import com.coffeearmy.marvelheroes.repository.ComicsRepository;
 import com.coffeearmy.marvelheroes.useCases.GetListComicsUseCase;
 import com.coffeearmy.marvelheroes.useCases.GetListComicsUseCaseImpl;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -43,11 +46,17 @@ public class ActivityModule {
         return new ComicResponseMapper();
     }
 
+    @Provides
+    @ActivityScope
+    @Named("id_character")
+    String provideIdCharacter() {
+        return "1009415";
+    }
 
     @Provides
     @ActivityScope
-    ListComicsPresenter provideListComicsPresenter(GetListComicsUseCase getListComicsUseCase, ComicDomainMapper comicDomainMapper){
-        return  new ListComicsPresenter(getListComicsUseCase,comicDomainMapper);
+    ListComicsPresenter provideListComicsPresenter(GetListComicsUseCase getListComicsUseCase, ComicDomainMapper comicDomainMapper, @Named("id_character")String idCharacter){
+        return  new ListComicsPresenter(getListComicsUseCase,comicDomainMapper,idCharacter);
     }
 
     @Provides

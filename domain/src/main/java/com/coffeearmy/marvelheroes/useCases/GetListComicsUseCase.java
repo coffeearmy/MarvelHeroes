@@ -4,12 +4,13 @@ import com.coffeearmy.marvelheroes.model.Comic;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
  * :3
  */
-public interface GetListComicsUseCase<T> {
+public interface GetListComicsUseCase {
 
-    Observable<List<Comic>> execute(String idCharacter, int offset);
+    Flowable<List<Comic>> execute(String idCharacter, int offset);
 }

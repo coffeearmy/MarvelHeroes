@@ -92,8 +92,15 @@ public class ListComicsFragment extends BaseFragment implements ListComicsViewMo
     }
 
     @Override
-    public void showError() {
+    public void showLoading() {
+        super.showLoading();
+        loading=true;
+    }
 
+    @Override
+    public void hideLoading() {
+        super.hideLoading();
+        loading=false;
     }
 
     @Override
