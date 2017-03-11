@@ -2,6 +2,7 @@ package com.coffeearmy.marvelheroes.model.mapper;
 
 import com.coffeearmy.marvelheroes.data.entity.ComicResponse;
 import com.coffeearmy.marvelheroes.data.entity.ComicsResponse;
+import com.coffeearmy.marvelheroes.injector.ActivityScope;
 import com.coffeearmy.marvelheroes.model.Comic;
 import com.coffeearmy.marvelheroes.model.ComicView;
 
@@ -17,7 +18,7 @@ import io.reactivex.Observable;
 /**
  * :3
  */
-@Singleton
+@ActivityScope
 public class ComicDomainMapper {
 
     @Inject

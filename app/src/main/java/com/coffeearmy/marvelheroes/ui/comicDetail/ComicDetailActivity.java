@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.coffeearmy.marvelheroes.R;
 import com.coffeearmy.marvelheroes.base.BaseActivity;
+import com.coffeearmy.marvelheroes.injector.component.ActivityComponent;
 import com.coffeearmy.marvelheroes.injector.component.ApplicationComponent;
 import com.coffeearmy.marvelheroes.injector.component.DaggerActivityComponent;
 import com.coffeearmy.marvelheroes.injector.module.ActivityModule;
@@ -28,6 +29,8 @@ public class ComicDetailActivity extends BaseActivity{
 
     @Inject
     Navigator navigator;
+
+    private ActivityComponent activityComponent;
 
     public static Intent newInstance(Context context, ComicView comic) {
         Intent intent = new Intent(context, ComicDetailActivity.class);
@@ -57,20 +60,28 @@ public class ComicDetailActivity extends BaseActivity{
         return ComicDetailFragment.newInstance( comicView);
     }
 
+    @Override
+    protected ActivityComponent getComponent() {
+        return activityComponent;
+    }
+
     protected void inject(ApplicationComponent applicationComponent) {
-        DaggerActivityComponent.builder()
+       activityComponent= DaggerActivityComponent.builder()
                 .applicationComponent(applicationComponent)
                 .activityModule(new ActivityModule(this))
-                .build().inject(this);
+                .build();
+        activityComponent.inject(this);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            onBackPressed();
+            navigator.goToList(this);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

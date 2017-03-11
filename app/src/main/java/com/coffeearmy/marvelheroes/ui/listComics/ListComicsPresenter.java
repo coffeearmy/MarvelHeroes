@@ -3,6 +3,7 @@ package com.coffeearmy.marvelheroes.ui.listComics;
 import android.util.Log;
 
 import com.coffeearmy.marvelheroes.base.BasePresenter;
+import com.coffeearmy.marvelheroes.injector.ActivityScope;
 import com.coffeearmy.marvelheroes.model.Comic;
 import com.coffeearmy.marvelheroes.model.ComicView;
 import com.coffeearmy.marvelheroes.model.mapper.ComicDomainMapper;
@@ -21,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * :3
  */
-
+@ActivityScope
 public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {
 
 
@@ -49,10 +50,6 @@ public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {
         listComicsView = view;
     }
 
-    @Override
-    public void onPause() {
-
-    }
 
     @Override
     public void onViewReady() {
@@ -61,20 +58,18 @@ public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {
 
     @Override
     public void detachView() {
-
+        listComicsView=null;
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
 
-    private void getComics() {
+    protected void getComics() {
         listComicsView.showLoading();
 
         getListComicsUseCase.execute(idCharacter, offset)
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<Comic>>() {
                     @Override

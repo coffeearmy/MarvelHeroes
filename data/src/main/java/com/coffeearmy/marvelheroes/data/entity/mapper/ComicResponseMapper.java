@@ -17,6 +17,9 @@ import io.reactivex.Observable;
 
 public class ComicResponseMapper {
 
+    public ComicResponseMapper() {
+    }
+
     public Flowable<List<Comic>> responseToModel(ComicsResponse data) {
         List<Comic> comicList = new ArrayList<>();
         for (ComicResponse comicResponse : data.getComicResponseList()) {

@@ -4,6 +4,7 @@ import com.coffeearmy.marvelheroes.data.entity.BaseResponse;
 import com.coffeearmy.marvelheroes.data.entity.mapper.ComicResponseMapper;
 import com.coffeearmy.marvelheroes.data.exception.ApiException;
 import com.coffeearmy.marvelheroes.data.net.ComicsGateway;
+import com.coffeearmy.marvelheroes.data.repository.datasource.DataStoreFactory;
 import com.coffeearmy.marvelheroes.model.Comic;
 import com.coffeearmy.marvelheroes.repository.ComicsRepository;
 
@@ -30,19 +31,21 @@ import retrofit2.http.HTTP;
 public class ComicsRepositoryImpl implements ComicsRepository {
 
     private static final int OK_STATUS = 200;
-    private ComicsGateway comicsGateway;
+
+    private DataStoreFactory dataStoreFactory;
     private ComicResponseMapper comicResponseMapper;
 
     @Inject
-    public ComicsRepositoryImpl(ComicsGateway comicsGateway, ComicResponseMapper comicResponseMapper) {
-        this.comicsGateway = comicsGateway;
+    public ComicsRepositoryImpl(DataStoreFactory dataStoreFactory, ComicResponseMapper comicResponseMapper) {
+        this.dataStoreFactory = dataStoreFactory;
         this.comicResponseMapper = comicResponseMapper;
     }
 
 
     @Override
     public Flowable<List<Comic>> getListComics(String characterId, int offset) {
-        return comicsGateway.getComicsByCharacterId(characterId,offset)
+        dataStoreFactory.create();
+        return dataStoreFactory.getComicsByCharacterId(characterId,offset)
                 //Checking errors of the  API
                .flatMap(new Function<retrofit2.Response<BaseResponse>, Flowable<BaseResponse>>() {
                     @Override

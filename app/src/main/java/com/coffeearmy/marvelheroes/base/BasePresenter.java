@@ -7,9 +7,7 @@ package com.coffeearmy.marvelheroes.base;
 public interface BasePresenter<T extends BaseViewModel> {
 
 
-    public void attachView(T view);
-
-    void onPause();
+    void attachView(T view);
 
     void onViewReady();
 

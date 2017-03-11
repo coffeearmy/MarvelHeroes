@@ -5,6 +5,8 @@ import android.app.Application;
 import com.coffeearmy.marvelheroes.R;
 import com.coffeearmy.marvelheroes.data.net.ComicInterceptor;
 import com.coffeearmy.marvelheroes.data.net.ComicsGateway;
+import com.coffeearmy.marvelheroes.data.repository.datasource.ApiRestDataStore;
+import com.coffeearmy.marvelheroes.data.repository.datasource.DataStoreFactory;
 import com.coffeearmy.marvelheroes.navigation.Navigator;
 import com.google.gson.GsonBuilder;
 
@@ -90,10 +92,19 @@ public class ApplicationModule {
         return retrofit.create(ComicsGateway.class);
     }
 
+
     @Provides
     @Singleton
-    Navigator provideNavigator(){
-        return new Navigator();
+    DataStoreFactory provideDataStoreFactory(ApiRestDataStore apiRestDataStore){
+        return new DataStoreFactory(apiRestDataStore);
+    }
+
+
+
+    @Provides
+    @Singleton
+    ApiRestDataStore provideApiRestDataStore(ComicsGateway comicsGateway){
+        return new ApiRestDataStore(comicsGateway);
     }
 
 }

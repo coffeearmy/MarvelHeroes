@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.coffeearmy.marvelheroes.ComicApplication;
 import com.coffeearmy.marvelheroes.R;
+import com.coffeearmy.marvelheroes.injector.component.ActivityComponent;
 import com.coffeearmy.marvelheroes.injector.component.ApplicationComponent;
 
 import javax.inject.Inject;
@@ -32,17 +33,6 @@ public abstract class BaseFragment extends Fragment implements BaseViewModel {
 
     protected BasePresenter presenter;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        inject(getApplicationComponent());
-    }
-
-    protected abstract void inject(ApplicationComponent applicationComponent);
-
-    private ApplicationComponent getApplicationComponent() {
-        return ((ComicApplication) getActivity().getApplication()).getComponent();
-    }
 
     @Nullable
     @Override
@@ -54,6 +44,7 @@ public abstract class BaseFragment extends Fragment implements BaseViewModel {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeButterKnife(view);
+        inject(((BaseActivity)getActivity()).getComponent());
         presenter = initializePresenter();
         presenter.attachView(this);
     }
@@ -103,5 +94,7 @@ public abstract class BaseFragment extends Fragment implements BaseViewModel {
     public abstract int getLayout();
 
     public abstract BasePresenter initializePresenter();
+
+    protected abstract void inject(ActivityComponent component);
 
 }

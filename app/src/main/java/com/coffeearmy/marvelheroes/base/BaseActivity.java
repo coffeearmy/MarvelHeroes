@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.coffeearmy.marvelheroes.ComicApplication;
 import com.coffeearmy.marvelheroes.R;
+import com.coffeearmy.marvelheroes.injector.component.ActivityComponent;
 import com.coffeearmy.marvelheroes.injector.component.ApplicationComponent;
 
 import butterknife.BindView;
@@ -27,15 +28,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        inject(getApplicationComponent());
         setContentView(getLayout());
         initializeButterKnife();
         initializeToolbar(getToolbarTitle(),isHomeButtonNeeded());
         injectFragment();
     }
-
-    protected abstract String getToolbarTitle();
-
-    protected abstract boolean isHomeButtonNeeded();
 
     private void initializeToolbar(String title, boolean needHomeButton) {
         if(toolbar!=null) {
@@ -49,14 +47,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void initializeButterKnife() {
         ButterKnife.bind(this);
     }
-
-
-    protected abstract int getLayout();
 
     private void injectFragment() {
         final Fragment fragment = onRequestFragment();
@@ -65,7 +58,21 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .commit();
     }
 
+    private ApplicationComponent getApplicationComponent() {
+        return ((ComicApplication) getApplication()).getComponent();
+    }
+
+    protected abstract void inject(ApplicationComponent applicationComponent);
+
     @NonNull
     protected abstract Fragment onRequestFragment();
+
+    protected abstract ActivityComponent getComponent();
+
+    protected abstract String getToolbarTitle();
+
+    protected abstract boolean isHomeButtonNeeded();
+
+    protected abstract int getLayout();
 
 }

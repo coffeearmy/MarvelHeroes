@@ -9,6 +9,7 @@ import android.view.View;
 import com.coffeearmy.marvelheroes.R;
 import com.coffeearmy.marvelheroes.base.BaseFragment;
 import com.coffeearmy.marvelheroes.base.BasePresenter;
+import com.coffeearmy.marvelheroes.injector.component.ActivityComponent;
 import com.coffeearmy.marvelheroes.injector.component.ApplicationComponent;
 import com.coffeearmy.marvelheroes.injector.component.DaggerActivityComponent;
 import com.coffeearmy.marvelheroes.injector.module.ActivityModule;
@@ -43,15 +44,6 @@ public class ListComicsFragment extends BaseFragment implements ListComicsViewMo
     private boolean loading;
 
     @Override
-    protected void inject(ApplicationComponent applicationComponent) {
-        DaggerActivityComponent.builder()
-                .applicationComponent(applicationComponent)
-                .activityModule(new ActivityModule(getActivity()))
-                .build().inject(this);
-
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initializeList();
@@ -65,6 +57,11 @@ public class ListComicsFragment extends BaseFragment implements ListComicsViewMo
     @Override
     public BasePresenter initializePresenter() {
         return listComicsPresenter;
+    }
+
+    @Override
+    protected void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
 

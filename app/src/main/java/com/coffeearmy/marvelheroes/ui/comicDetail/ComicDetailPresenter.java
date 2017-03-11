@@ -2,37 +2,29 @@ package com.coffeearmy.marvelheroes.ui.comicDetail;
 
 import com.coffeearmy.marvelheroes.base.BasePresenter;
 import com.coffeearmy.marvelheroes.base.BaseViewModel;
+import com.coffeearmy.marvelheroes.injector.ActivityScope;
+
+import javax.inject.Inject;
 
 /**
  * :3
  */
-
+@ActivityScope
 public class ComicDetailPresenter implements BasePresenter<ComicDetailViewModel> {
 
-
-
-    @Override
-    public void attachView(ComicDetailViewModel view) {
-
+    @Inject
+    public ComicDetailPresenter() {
     }
 
     @Override
-    public void onPause() {
-
-    }
+    public void attachView(ComicDetailViewModel view) {}
 
     @Override
-    public void onViewReady() {
-
-    }
+    public void onViewReady() { }
 
     @Override
-    public void detachView() {
-
-    }
+    public void detachView() { }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {  }
 }

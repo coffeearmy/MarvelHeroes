@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,10 +16,12 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.coffeearmy.marvelheroes.R;
 import com.coffeearmy.marvelheroes.base.BaseFragment;
 import com.coffeearmy.marvelheroes.base.BasePresenter;
+import com.coffeearmy.marvelheroes.injector.component.ActivityComponent;
 import com.coffeearmy.marvelheroes.injector.component.ApplicationComponent;
 import com.coffeearmy.marvelheroes.injector.component.DaggerActivityComponent;
 import com.coffeearmy.marvelheroes.injector.module.ActivityModule;
 import com.coffeearmy.marvelheroes.model.ComicView;
+import com.coffeearmy.marvelheroes.navigation.Navigator;
 import com.coffeearmy.marvelheroes.util.Util;
 
 import java.util.List;
@@ -38,6 +41,9 @@ public class ComicDetailFragment extends BaseFragment implements ComicDetailView
 
     @Inject
     ComicDetailPresenter comicDetailPresenter;
+
+    @Inject
+    Navigator navigator;
 
     @BindView(R.id.image_cover)
     ImageView imageCoverView;
@@ -64,11 +70,8 @@ public class ComicDetailFragment extends BaseFragment implements ComicDetailView
     }
 
     @Override
-    protected void inject(ApplicationComponent applicationComponent) {
-        DaggerActivityComponent.builder()
-                .applicationComponent(applicationComponent)
-                .activityModule(new ActivityModule(getActivity()))
-                .build().inject(this);
+    protected void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override
@@ -104,11 +107,5 @@ public class ComicDetailFragment extends BaseFragment implements ComicDetailView
     public int getLayout() {
         return LAYOUT_VIEW;
     }
-
-
-    @Override
-    public void showError() {
-    }
-
 
 }

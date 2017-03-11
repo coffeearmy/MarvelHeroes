@@ -5,6 +5,7 @@ import android.app.Activity;
 import com.coffeearmy.marvelheroes.data.entity.mapper.ComicResponseMapper;
 import com.coffeearmy.marvelheroes.data.net.ComicsGateway;
 import com.coffeearmy.marvelheroes.data.repository.ComicsRepositoryImpl;
+import com.coffeearmy.marvelheroes.data.repository.datasource.DataStoreFactory;
 import com.coffeearmy.marvelheroes.injector.ActivityScope;
 import com.coffeearmy.marvelheroes.model.mapper.ComicDomainMapper;
 import com.coffeearmy.marvelheroes.ui.comicDetail.ComicDetailPresenter;
@@ -61,25 +62,14 @@ public class ActivityModule {
 
     @Provides
     @ActivityScope
-    ComicDetailPresenter provideComicDetailPresenter(){
-        return  new ComicDetailPresenter();
-    }
-
-    @Provides
-    @ActivityScope
     GetListComicsUseCase provideGetListComicsUseCase(ComicsRepository comicsRepository){
         return new GetListComicsUseCaseImpl(comicsRepository);
     }
 
     @Provides
     @ActivityScope
-    ComicsRepository provideComicRepository(ComicsGateway comicsGateway, ComicResponseMapper comicResponseMapper){
-        return new ComicsRepositoryImpl(comicsGateway,comicResponseMapper);
+    ComicsRepository provideComicRepository(DataStoreFactory dataStoreFactory, ComicResponseMapper comicResponseMapper){
+        return new ComicsRepositoryImpl(dataStoreFactory,comicResponseMapper);
     }
 
-    @Provides
-    @ActivityScope
-    ComicDomainMapper provideComicDomainMapper(){
-        return new ComicDomainMapper();
-    }
 }
