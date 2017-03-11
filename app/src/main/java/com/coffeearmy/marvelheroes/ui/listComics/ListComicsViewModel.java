@@ -7,7 +7,7 @@ import com.coffeearmy.marvelheroes.model.ComicView;
 import java.util.List;
 
 /**
- * :3
+ *
  */
 
 public interface ListComicsViewModel extends BaseViewModel {

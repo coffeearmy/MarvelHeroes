@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 
 /**
- * :3
+ *
  */
 
 public interface ComicsGateway {

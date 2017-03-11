@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * :3
+ *
  */
 @Singleton
 public class Navigator {

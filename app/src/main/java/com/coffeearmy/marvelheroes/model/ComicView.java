@@ -8,7 +8,7 @@ import com.coffeearmy.marvelheroes.base.BaseEntity;
 import java.util.List;
 
 /**
- * :3
+ *
  */
 
 public class ComicView implements Parcelable, BaseEntity {

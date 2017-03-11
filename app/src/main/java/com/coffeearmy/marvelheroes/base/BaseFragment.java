@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
- * :3
+ *
  */
 
 public abstract class BaseFragment extends Fragment implements BaseViewModel {

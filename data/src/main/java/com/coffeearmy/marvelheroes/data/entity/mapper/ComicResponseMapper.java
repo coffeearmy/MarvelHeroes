@@ -12,7 +12,7 @@ import io.reactivex.Observable;
 
 
 /**
- * :3
+ *
  */
 
 public class ComicResponseMapper {

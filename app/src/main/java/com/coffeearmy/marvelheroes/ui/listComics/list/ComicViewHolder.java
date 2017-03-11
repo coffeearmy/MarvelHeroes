@@ -13,7 +13,7 @@ import com.coffeearmy.marvelheroes.model.ComicView;
 import butterknife.BindView;
 
 /**
- * :3
+ *
  */
 
 public class ComicViewHolder extends BaseViewHolder {

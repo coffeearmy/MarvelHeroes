@@ -20,7 +20,7 @@ import io.reactivex.observers.DefaultObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * :3
+ *
  */
 @ActivityScope
 public class ListComicsPresenter implements BasePresenter<ListComicsViewModel> {

@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * :3
+ *
  */
 
 public class ListComicsFragment extends BaseFragment implements ListComicsViewModel,

@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
- * :3
+ *
  */
 public interface GetListComicsUseCase {
 

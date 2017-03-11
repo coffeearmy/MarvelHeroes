@@ -21,7 +21,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * :3
+ *
  */
 @Module
 public class ActivityModule {

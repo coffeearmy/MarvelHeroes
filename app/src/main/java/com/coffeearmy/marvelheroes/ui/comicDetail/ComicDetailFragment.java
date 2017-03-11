@@ -31,7 +31,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * :3
+ *
  */
 
 public class ComicDetailFragment extends BaseFragment implements ComicDetailViewModel {

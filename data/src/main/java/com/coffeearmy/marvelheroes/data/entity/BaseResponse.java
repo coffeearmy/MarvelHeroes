@@ -1,7 +1,7 @@
 package com.coffeearmy.marvelheroes.data.entity;
 
 /**
- * :3
+ *
  */
 
 public class BaseResponse {

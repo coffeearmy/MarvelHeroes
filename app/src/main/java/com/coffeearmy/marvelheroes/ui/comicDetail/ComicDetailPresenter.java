@@ -7,7 +7,7 @@ import com.coffeearmy.marvelheroes.injector.ActivityScope;
 import javax.inject.Inject;
 
 /**
- * :3
+ *
  */
 @ActivityScope
 public class ComicDetailPresenter implements BasePresenter<ComicDetailViewModel> {

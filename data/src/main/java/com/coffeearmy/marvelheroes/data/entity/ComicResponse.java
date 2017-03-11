@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * :3
+ *
  */
 
 public class ComicResponse {

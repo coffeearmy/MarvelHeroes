@@ -12,7 +12,7 @@ import com.coffeearmy.marvelheroes.ui.listComics.ListComicsFragment;
 import dagger.Component;
 
 /**
- * :3
+ *
  */
 
 @ActivityScope

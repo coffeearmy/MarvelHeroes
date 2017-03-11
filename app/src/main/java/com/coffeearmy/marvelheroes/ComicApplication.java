@@ -7,7 +7,7 @@ import com.coffeearmy.marvelheroes.injector.component.DaggerApplicationComponent
 import com.coffeearmy.marvelheroes.injector.module.ApplicationModule;
 
 /**
- * :3
+ *
  */
 
 public class ComicApplication extends Application {

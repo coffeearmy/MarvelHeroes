@@ -25,7 +25,7 @@ import retrofit2.http.HTTP;
 
 
 /**
- * :3
+ *
  */
 
 public class ComicsRepositoryImpl implements ComicsRepository {

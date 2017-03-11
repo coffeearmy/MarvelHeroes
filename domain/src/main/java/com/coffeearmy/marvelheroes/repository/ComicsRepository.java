@@ -9,7 +9,7 @@ import io.reactivex.Observable;
 
 
 /**
- * :3
+ *
  */
 
 public interface ComicsRepository {

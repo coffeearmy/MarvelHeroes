@@ -3,7 +3,7 @@ package com.coffeearmy.marvelheroes.util;
 import java.util.Random;
 
 /**
- * :3
+ *
  */
 
 public class Util {

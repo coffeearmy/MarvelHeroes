@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 /**
- * :3
+ *
  */
 public class ListComicsPresenterTest {
 

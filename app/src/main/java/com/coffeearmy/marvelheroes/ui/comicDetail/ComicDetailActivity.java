@@ -19,7 +19,7 @@ import com.coffeearmy.marvelheroes.navigation.Navigator;
 import javax.inject.Inject;
 
 /**
- * :3
+ *
  */
 
 public class ComicDetailActivity extends BaseActivity{

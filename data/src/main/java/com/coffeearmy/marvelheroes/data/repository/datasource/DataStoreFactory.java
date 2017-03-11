@@ -9,7 +9,7 @@ import io.reactivex.Flowable;
 import retrofit2.Response;
 
 /**
- * :3
+ *
  */
 
 public class DataStoreFactory {

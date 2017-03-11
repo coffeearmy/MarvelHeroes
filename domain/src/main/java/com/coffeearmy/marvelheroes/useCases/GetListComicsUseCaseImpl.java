@@ -11,7 +11,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
- * :3
+ *
  */
 
 public class GetListComicsUseCaseImpl implements GetListComicsUseCase {

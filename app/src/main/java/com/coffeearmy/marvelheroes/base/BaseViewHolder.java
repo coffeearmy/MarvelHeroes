@@ -7,7 +7,7 @@ import android.view.View;
 import butterknife.ButterKnife;
 
 /**
- * :3
+ *
  */
 
 public abstract class BaseViewHolder<T extends BaseEntity> extends RecyclerView.ViewHolder {

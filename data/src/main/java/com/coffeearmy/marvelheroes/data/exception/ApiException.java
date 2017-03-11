@@ -1,7 +1,7 @@
 package com.coffeearmy.marvelheroes.data.exception;
 
 /**
- * :3
+ *
  */
 
 public class ApiException extends Exception {

@@ -3,7 +3,7 @@ package com.coffeearmy.marvelheroes.model;
 import java.util.List;
 
 /**
- * :3
+ *
  */
 
 public class Comic {

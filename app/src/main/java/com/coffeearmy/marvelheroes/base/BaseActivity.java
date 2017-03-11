@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * :3
+ *
  */
 
 public abstract class BaseActivity extends AppCompatActivity {

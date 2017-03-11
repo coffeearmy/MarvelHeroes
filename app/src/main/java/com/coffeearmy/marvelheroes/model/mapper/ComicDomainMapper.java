@@ -16,7 +16,7 @@ import io.reactivex.Observable;
 
 
 /**
- * :3
+ *
  */
 @ActivityScope
 public class ComicDomainMapper {

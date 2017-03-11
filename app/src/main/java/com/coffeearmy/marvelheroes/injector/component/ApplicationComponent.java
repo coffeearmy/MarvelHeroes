@@ -13,7 +13,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
- * :3
+ *
  */
 @Singleton
 @Component(modules = ApplicationModule.class)

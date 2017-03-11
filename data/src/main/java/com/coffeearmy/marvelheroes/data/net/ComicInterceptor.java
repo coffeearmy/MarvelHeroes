@@ -16,7 +16,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * :3
+ *
  */
 
 public class ComicInterceptor implements Interceptor {
